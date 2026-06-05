@@ -34,6 +34,7 @@ public class UserController {
 	private final ReviewService reviewService;
 	private final ShopService shopService;
     
+	
     public UserController(
     	UserService userService,
     	ItemService itemService,
@@ -59,7 +60,7 @@ public class UserController {
     // サインアップフォーム投稿時の処理を追記
     @PostMapping("/sign_up")
     public String signUpProcess(
-        @ModelAttribute("sign_up") SignUpForm signUpForm,
+        @ModelAttribute("sign_up") @Valid SignUpForm signUpForm,
         RedirectAttributes redirectAttributes,
         Model model){
         String[] roles = {"ROLE_USER", "ROLE_ADMIN"};
@@ -159,7 +160,10 @@ public class UserController {
         redirectAttributes.addFlashAttribute(
             "successMessage",
             "レビューの更新が完了しました");
-        return "redirect:/users/review/{id}";
+
+        redirectAttributes.addAttribute("userId", user.getId());
+        return "redirect:/users/review/{userId}";
+       // return "redirect:/users/review/{id}";
     }
     
     @GetMapping("/review/delete/{id}")    
