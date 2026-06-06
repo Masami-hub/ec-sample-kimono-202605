@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ##pushしたくないファイル##
-src/main/resources/application.properties
+##src/main/resources/application.properties##
